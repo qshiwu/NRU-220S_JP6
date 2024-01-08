@@ -21,56 +21,92 @@ function setGPO(){
 }
 
 
+
+function getLineTegra234Gpio (){
+  # $1 = GPIO_NAME
+  GPIO_LINE=$(/usr/src/libgpiod/tools/gpioinfo -c 0 )
+  
+  
+  GPIO_PIN=$(sudo cat /sys/kernel/debug/gpio | grep $1 | awk -F"-| " '{print $3}')
+  echo $1 $GPIO_PIN
+  sudo echo $GPIO_PIN > /sys/class/gpio/export
+  sudo echo out > /sys/class/gpio/$1/direction
+  sudo echo 0 > /sys/class/gpio/$1/value
+  sleep 0.005
+}
+
+function setLineTegra234Gpio() {  
+  # $1: GpioName
+  # $2: GpioValue 
+  GPIO_CHIP=0
+  GPIO_LINE=$(sudo /usr/src/libgpiod/tools/gpioinfo -c $GPIO_CHIP | grep $1 | awk -F":| " '{print $4}')
+  echo $1 $GPIO_LINE >> /tmp/gpio.log
+  sudo /usr/src/libgpiod/tools/gpioset -c $GPIO_CHIP --daemonize $GPIO_LINE=$2
+}
+
+function setLineTegra234GpioAon() {  
+  # $1: GpioName
+  # $2: GpioValue 
+  GPIO_CHIP=1
+  GPIO_LINE=$(sudo /usr/src/libgpiod/tools/gpioinfo -c $GPIO_CHIP | grep $1 | awk -F":| " '{print $4}')
+  echo $1 $GPIO_LINE >> /tmp/gpio.log
+  sudo /usr/src/libgpiod/tools/gpioset -c $GPIO_CHIP --daemonize $GPIO_LINE=$2
+}
+
+
+
 case $1 in
   start)
-
-#    sudo -u nvidia gsettings set org.gnome.SessionManager logout-prompt false
-
+    echo "----" > /tmp/gpio.log
     ### UART D /dev/ttyTHS3 ###
     sudo busybox devmem 0x02434018 w 0x00000450
-
+    
+    sudo pkill gpioset
     ### ES2 GPIO enable ###
    
-    # MCU_BIOS_OK_ORIN _ to 0
-    # GPIO3_PAA.07 _ gpio-323 	
-    setGPO 323 PAA.07 0
+    # MCU_BIOS_OK_ORIN _ to 0    
+    # setGPO 323 PAA.07 0    
+    setLineTegra234GpioAon PAA.07 0 
 
     # OSLED _ to 1
     # GPIO3_PAA.04 _ gpio-320 
-    setGPO 320 PAA.04 1
+    # setGPO 320 PAA.04 1
+    setLineTegra234GpioAon PAA.04 1
     
     # GPO_UART_EN _ to 1	
     # GPIO3_PAC.07 _ gpio-493 	
-    setGPO 493 PAC.07 1
+    # setGPO 493 PAC.07 1
+    setLineTegra234GpioAon PAC.07 1
 
     # GPO_CAN_EN _ to 1
     # GPIO3_PBB.00 _ gpio-324 	
-    setGPO 324 PBB.00 1
+    # setGPO 324 PBB.00 1
+    setLineTegra234GpioAon PBB.00 1
     
     # ---
     # GPO_FAN_EN _ to 1	 
     # PAC.05 _  gpio-491
-    setGPO 491 PAC.05 1
+    setLineTegra234GpioAon PAC.05 1
 
     # GPO_RS232_EN _ to 1 _ Drive 1 after GPO_FAN_EN
     # GPIO3_PBB.01 _  gpio-325 
-    setGPO 325 PBB.01 1
+    setLineTegra234GpioAon PBB.01 1
     
     # ---
     # GPO_PWR_POE_EN _ to 1
     # GPIO3_PAC.01 _  gpio-487
-    setGPO 487 PAC.01 1
+    setLineTegra234GpioAon PAC.01 1
 
     # GPO_PSE_RESET_N _ to 1 _ Drive 1 after GPO_PWR_POE_EN
     # GPIO3_PBB.02 _  gpio-326
-    setGPO 326 PBB.02 1
-
+    setLineTegra234GpioAon PBB.02 1
 
 
     ### Enable Marvell 88E6172
-    sudo echo 388 > /sys/class/gpio/export
-    sudo echo out > /sys/class/gpio/PG.05/direction
-    sudo echo 1 > /sys/class/gpio/PG.05/value
+    # sudo echo 388 > /sys/class/gpio/export
+    # sudo echo out > /sys/class/gpio/PG.05/direction
+    # sudo echo 1 > /sys/class/gpio/PG.05/value
+    setLineTegra234Gpio PG.05 1
     sleep 0.1
 
     sudo insmod /usr/src/mdio-netlink.ko
