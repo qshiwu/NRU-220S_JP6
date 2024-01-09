@@ -11,7 +11,8 @@ sudo ./install.sh
 
 ## libgpiod
 ```
-git clone git://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git
+# git clone git://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git
+git submodule add git://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git libgpiod
 cd libgpiod
 ```
 ### Dependency Packages
