@@ -20,7 +20,7 @@ sudo apt-get install automake
 sudo apt-get install autoconf-archive
 
 ### 
-sudo ./autogen.sh
+# sudo ./autogen.sh
 sudo ./autogen.sh --enable-tools=yes
 sudo make
 sudo make install
@@ -28,7 +28,7 @@ sudo make install
 
 ## mdio
 
-### Ref: https://stackoverflow.com/questions/32594877/libmnl-issue-while-installing-libnetfilter-queue-in-linux
+Ref: https://stackoverflow.com/questions/32594877/libmnl-issue-while-installing-libnetfilter-queue-in-linux
 
 ### install libmnl
 ```
@@ -67,6 +67,7 @@ sudo openssl req -new -nodes -utf8 -sha512 -days 36500 -batch -x509 -config x509
 sudo apt-get install mokutil
 sudo mokutil --disable-validation
 admin.123.123
+admin.123.123
 sudo reboot 
 ```
 
@@ -80,7 +81,9 @@ sudo ./autogen.sh
 
 ###  Use this command to install
 ```
-sudo ./configure --prefix=/usr && make all && sudo make install
+sudo ./configure --prefix=/usr 
+sudo ./autogen.sh
+make all && sudo make install
 cd kernel 
 make
 ```
