@@ -74,7 +74,8 @@ sudo reboot
 
 ### finally get mdio-tools source code
 ```
-git clone https://github.com/wkz/mdio-tools
+# git clone https://github.com/wkz/mdio-tools
+git submodule add https://github.com/wkz/mdio-tools mdio-tools
 cd mdio-tools
 sudo apt-get install openssl automake autoconf libtool mokutil
 sudo ./autogen.sh
