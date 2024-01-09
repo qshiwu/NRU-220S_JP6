@@ -39,8 +39,10 @@ function setLineTegra234Gpio() {
   # $1: GpioName
   # $2: GpioValue 
   GPIO_CHIP=0
-  GPIO_LINE=$(sudo /usr/src/libgpiod/tools/gpioinfo -c $GPIO_CHIP | grep $1 | awk -F":| " '{print $4}')
-  echo $1 $GPIO_LINE >> /tmp/gpio.log
+  GPIO_LINE=$(sudo /usr/src/libgpiod/tools/gpioinfo -c $GPIO_CHIP | grep $1 | awk -F":" '{print $1}' | awk -F" " '{print $2}')
+  sudo echo $1 $2
+  # sleep 0.5
+  # sudo /usr/src/libgpiod/tools/gpioinfo $1
   sudo /usr/src/libgpiod/tools/gpioset -c $GPIO_CHIP --daemonize $GPIO_LINE=$2
 }
 
@@ -48,8 +50,10 @@ function setLineTegra234GpioAon() {
   # $1: GpioName
   # $2: GpioValue 
   GPIO_CHIP=1
-  GPIO_LINE=$(sudo /usr/src/libgpiod/tools/gpioinfo -c $GPIO_CHIP | grep $1 | awk -F":| " '{print $4}')
-  echo $1 $GPIO_LINE >> /tmp/gpio.log
+  GPIO_LINE=$(sudo /usr/src/libgpiod/tools/gpioinfo -c $GPIO_CHIP | grep $1 | awk -F":" '{print $1}' | awk -F" " '{print $2}')
+  sudo echo $1 $2
+  # sleep 0.5
+  # sudo /usr/src/libgpiod/tools/gpioinfo $1
   sudo /usr/src/libgpiod/tools/gpioset -c $GPIO_CHIP --daemonize $GPIO_LINE=$2
 }
 
@@ -59,8 +63,7 @@ case $1 in
   start)
     echo "----" > /tmp/gpio.log
     ### UART D /dev/ttyTHS3 ###
-    sudo busybox devmem 0x02434018 w 0x00000450
-    
+    sudo busybox devmem 0x02434018 w 0x00000450    
     sudo pkill gpioset
     ### ES2 GPIO enable ###
    
@@ -76,7 +79,7 @@ case $1 in
     # GPO_UART_EN _ to 1	
     # GPIO3_PAC.07 _ gpio-493 	
     # setGPO 493 PAC.07 1
-    setLineTegra234GpioAon PAC.07 1
+    setLineTegra234Gpio PAC.07 1
 
     # GPO_CAN_EN _ to 1
     # GPIO3_PBB.00 _ gpio-324 	
@@ -86,7 +89,7 @@ case $1 in
     # ---
     # GPO_FAN_EN _ to 1	 
     # PAC.05 _  gpio-491
-    setLineTegra234GpioAon PAC.05 1
+    setLineTegra234Gpio PAC.05 1
 
     # GPO_RS232_EN _ to 1 _ Drive 1 after GPO_FAN_EN
     # GPIO3_PBB.01 _  gpio-325 
@@ -95,7 +98,7 @@ case $1 in
     # ---
     # GPO_PWR_POE_EN _ to 1
     # GPIO3_PAC.01 _  gpio-487
-    setLineTegra234GpioAon PAC.01 1
+    setLineTegra234Gpio PAC.01 1
 
     # GPO_PSE_RESET_N _ to 1 _ Drive 1 after GPO_PWR_POE_EN
     # GPIO3_PBB.02 _  gpio-326
