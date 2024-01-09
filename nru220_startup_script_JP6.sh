@@ -67,50 +67,50 @@ case $1 in
     sudo pkill gpioset
     ### ES2 GPIO enable ###
    
-    # MCU_BIOS_OK_ORIN _ to 0    
-    # setGPO 323 PAA.07 0    
-    setLineTegra234GpioAon PAA.07 0 
+    # # MCU_BIOS_OK_ORIN _ to 0    
+    # # setGPO 323 PAA.07 0    
+    # setLineTegra234GpioAon PAA.07 0 
 
-    # OSLED _ to 1
-    # GPIO3_PAA.04 _ gpio-320 
-    # setGPO 320 PAA.04 1
-    setLineTegra234GpioAon PAA.04 1
+    # # OSLED _ to 1
+    # # GPIO3_PAA.04 _ gpio-320 
+    # # setGPO 320 PAA.04 1
+    # setLineTegra234GpioAon PAA.04 1
     
-    # GPO_UART_EN _ to 1	
-    # GPIO3_PAC.07 _ gpio-493 	
-    # setGPO 493 PAC.07 1
-    setLineTegra234Gpio PAC.07 1
+    # # GPO_UART_EN _ to 1	
+    # # GPIO3_PAC.07 _ gpio-493 	
+    # # setGPO 493 PAC.07 1
+    # setLineTegra234Gpio PAC.07 1
 
-    # GPO_CAN_EN _ to 1
-    # GPIO3_PBB.00 _ gpio-324 	
-    # setGPO 324 PBB.00 1
-    setLineTegra234GpioAon PBB.00 1
+    # # GPO_CAN_EN _ to 1
+    # # GPIO3_PBB.00 _ gpio-324 	
+    # # setGPO 324 PBB.00 1
+    # setLineTegra234GpioAon PBB.00 1
     
-    # ---
-    # GPO_FAN_EN _ to 1	 
-    # PAC.05 _  gpio-491
-    setLineTegra234Gpio PAC.05 1
+    # # ---
+    # # GPO_FAN_EN _ to 1	 
+    # # PAC.05 _  gpio-491
+    # setLineTegra234Gpio PAC.05 1
 
-    # GPO_RS232_EN _ to 1 _ Drive 1 after GPO_FAN_EN
-    # GPIO3_PBB.01 _  gpio-325 
-    setLineTegra234GpioAon PBB.01 1
+    # # GPO_RS232_EN _ to 1 _ Drive 1 after GPO_FAN_EN
+    # # GPIO3_PBB.01 _  gpio-325 
+    # setLineTegra234GpioAon PBB.01 1
     
-    # ---
-    # GPO_PWR_POE_EN _ to 1
-    # GPIO3_PAC.01 _  gpio-487
-    setLineTegra234Gpio PAC.01 1
+    # # ---
+    # # GPO_PWR_POE_EN _ to 1
+    # # GPIO3_PAC.01 _  gpio-487
+    # setLineTegra234Gpio PAC.01 1
 
-    # GPO_PSE_RESET_N _ to 1 _ Drive 1 after GPO_PWR_POE_EN
-    # GPIO3_PBB.02 _  gpio-326
-    setLineTegra234GpioAon PBB.02 1
+    # # GPO_PSE_RESET_N _ to 1 _ Drive 1 after GPO_PWR_POE_EN
+    # # GPIO3_PBB.02 _  gpio-326
+    # setLineTegra234GpioAon PBB.02 1
 
 
-    ### Enable Marvell 88E6172
-    # sudo echo 388 > /sys/class/gpio/export
-    # sudo echo out > /sys/class/gpio/PG.05/direction
-    # sudo echo 1 > /sys/class/gpio/PG.05/value
-    setLineTegra234Gpio PG.05 1
-    sleep 0.1
+    # ### Enable Marvell 88E6172
+    # # sudo echo 388 > /sys/class/gpio/export
+    # # sudo echo out > /sys/class/gpio/PG.05/direction
+    # # sudo echo 1 > /sys/class/gpio/PG.05/value
+    # setLineTegra234Gpio PG.05 1
+    # sleep 0.1
 
     sudo insmod /usr/src/mdio-netlink.ko
 
