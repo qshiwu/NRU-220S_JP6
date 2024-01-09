@@ -88,7 +88,7 @@ case $1 in
     sleep 0.1
     sudo /usr/src/mdio_tools/mdio 2310000.ethernet phy 0x15 raw 1 0xc01e
     sleep 0.2
-    sudo /usr/src/mdio_tools/mdio  2310000.ethernet phy 0x15 raw 1 0xc03e
+    sudo /usr/src/mdio_tools/mdio 2310000.ethernet phy 0x15 raw 1 0xc03e
     sleep 0.2
 
     sudo ifconfig eth0 down
