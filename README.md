@@ -85,7 +85,7 @@ sudo ./autogen.sh
 ```
 sudo ./configure --prefix=/usr 
 sudo ./autogen.sh
-make all && sudo make install
+sudo make all && sudo make install
 cd kernel 
 make
 ```
