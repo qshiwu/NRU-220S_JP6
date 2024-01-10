@@ -1,6 +1,16 @@
 #!/bin/bash
 echo "Installing libgpioid"
-sudo cp -r tools/libgpiod_tools/ /usr/src/
+
+sudo apt-get install automake
+sudo apt-get install autoconf-archive
+
+git clone git://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git
+cd libgpiod
+sudo ./autogen.sh --enable-tools=yes
+sudo make
+sudo make install
+sudo cp -r tools/ /usr/src/libgpiod_tools/
+cd ..
 
 echo "Installing mdio"
 sudo cp -r tools/mdio_tools/ /usr/src/
