@@ -17,18 +17,18 @@ function setLineTegra234Gpio() {
   # $1: GpioName
   # $2: GpioValue 
   GPIO_CHIP=0
-  GPIO_LINE=$(sudo /usr/src/libgpiod_tools/gpioinfo -c $GPIO_CHIP | grep $1 | awk -F":" '{print $1}' | awk -F" " '{print $2}')
+  GPIO_LINE=$(sudo /usr/src/libgpiod_tools/tools/gpioinfo -c $GPIO_CHIP | grep $1 | awk -F":" '{print $1}' | awk -F" " '{print $2}')
   sudo echo $1 $2     
-  sudo /usr/src/libgpiod_tools/gpioset -c $GPIO_CHIP --daemonize $GPIO_LINE=$2
+  sudo /usr/src/libgpiod_tools/tools/gpioset -c $GPIO_CHIP --daemonize $GPIO_LINE=$2
 }
 
 function setLineTegra234GpioAon() {  
   # $1: GpioName
   # $2: GpioValue 
   GPIO_CHIP=1
-  GPIO_LINE=$(sudo /usr/src/libgpiod_tools/gpioinfo -c $GPIO_CHIP | grep $1 | awk -F":" '{print $1}' | awk -F" " '{print $2}')
+  GPIO_LINE=$(sudo /usr/src/libgpiod_tools/tools/gpioinfo -c $GPIO_CHIP | grep $1 | awk -F":" '{print $1}' | awk -F" " '{print $2}')
   sudo echo $1 $2  
-  sudo /usr/src/libgpiod_tools/gpioset -c $GPIO_CHIP --daemonize $GPIO_LINE=$2
+  sudo /usr/src/libgpiod_tools/tools/gpioset -c $GPIO_CHIP --daemonize $GPIO_LINE=$2
 }
 
 
