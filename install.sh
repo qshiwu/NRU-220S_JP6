@@ -1,6 +1,7 @@
 #!/bin/bash
 echo "Installing libgpioid"
 
+sudo apt-get update
 sudo apt-get install automake
 sudo apt-get install autoconf-archive
 
